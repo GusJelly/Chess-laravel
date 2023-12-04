@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     public function chessies(): HasMany
     {
-        return $this->hasMany(chessies::class);
+        return $this->hasMany(Chessie::class);
     }
 
     /**

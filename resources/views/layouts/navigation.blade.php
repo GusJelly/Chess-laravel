@@ -15,8 +15,8 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('chessies.index')" :active="request()->routeIs('chessies.index')">
-                        {{ __('Chessies') }}
+                    <x-nav-link :href="route('chessie.index')" :active="request()->routeIs('chessie.index')">
+                        {{ __('Chessie') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -80,8 +80,8 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('chessies.index')" :active="request()->routeIs('chessies.index')">
-                {{ __('Chessies') }}
+            <x-responsive-nav-link :href="route('chessie.index')" :active="request()->routeIs('chessie.index')">
+                {{ __('Chessie') }}
             </x-responsive-nav-link>
         </div>
 

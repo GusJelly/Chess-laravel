@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\chessies;
+use App\Models\Chessie;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +14,9 @@ class ChessiesController extends Controller
      */
     public function index(): View
     {
-        return view('chessies.index');
+        return view('chessies.index', [
+            'chessie' => Chessie::with('user')->latest()->get(),
+        ]);
     }
 
     /**
@@ -36,13 +38,13 @@ class ChessiesController extends Controller
 
         $request->user()->chessies()->create($validated);
 
-        return redirect(route('chessies.index'));
+        return redirect(route('chessie.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(chessies $chessies)
+    public function show(Chessie $chessie)
     {
         //
     }
@@ -50,24 +52,39 @@ class ChessiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(chessies $chessies)
+    public function edit(Chessie $chessie): View
     {
-        //
+        $this->authorize('update', $chessie);
+
+        return view('chessiesjj.edit', [
+            'chessie' => $chessie,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, chessies $chessies)
+    public function update(Request $request, Chessie $chessie): RedirectResponse
     {
-        //
+        $this->authorize('update', $chessie);
+
+        $validated = $request->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        $chessie->update($validated);
+
+        return redirect(route('chessie.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(chessies $chessies)
+    public function destroy(Chessie $chessie): RedirectResponse
     {
-        //
+        $this->authorize('delete', $chessie);
+        $chessie->delete();
+
+        return redirect(route('chessie.index'));
     }
 }
